@@ -328,6 +328,39 @@ function utf8_to_cp1252(%str, %error)
   return %out;
 }
 
+function utf8_to_tml(%str, %texRoot)
+{
+  %len = strlen(%str);
+
+  while (%str !$= "")
+  {
+    %cp = utf8_decode(%str) | 0;
+    %str = getSubStr(%str, $utf8_i, %len);
+
+    %hex = "";
+    %val = %cp | 0;
+
+    while (%val != 0)
+    {
+      %hex = getSubStr("0123456789abcdef", %val & 15, "1") @ %hex;
+      %val >>= 4;
+    }
+
+    %texName = %texRoot @ "/" @ leftPad(%hex, "4", "0");
+
+    if (isFile(%texName @ ".png"))
+      %out = %out @ "<bitmap:" @ %texName @ ">";
+    else if ((%cp <= 0x7f) || (%cp >= 0xa0 && %cp <= 0xff))
+      %out = %out @ $chr[%cp];
+    else if ($unicode_to_cp1252[%cp] !$= "")
+      %out = %out @ $unicode_to_cp1252[%cp];
+    else
+      %out = %out @ %error;
+  }
+
+  return %out;
+}
+
 function escapeBytes(%str)
 {
   %len = strlen(%str);
