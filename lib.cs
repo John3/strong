@@ -193,7 +193,7 @@ $utf8d350= 12;$utf8d351= 12;$utf8d352= 12;$utf8d353= 36;$utf8d354= 12;
 $utf8d355= 12;$utf8d356= 12;$utf8d357= 12;$utf8d358= 12;$utf8d359= 12;
 $utf8d360= 12;$utf8d361= 12;$utf8d362= 12;$utf8d363= 12;$utf8d364=119;
 
-$UTF8_INVALID = 0x11000;
+$UTF8_INVALID = 0x110000;
 
 // function utf8_decode(%str)
 // {
